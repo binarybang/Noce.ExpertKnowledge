@@ -1,0 +1,6 @@
+@Noce.ExpertKnowledge_HostAddress = http://localhost:5106
+
+GET {{Noce.ExpertKnowledge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
