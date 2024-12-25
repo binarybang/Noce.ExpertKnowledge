@@ -23,13 +23,17 @@ public class KnowledgeBaseRequestMapper : IKnowledgeBaseRequestMapper
 
     private static EntrySpecification MapEntrySpecification(KnowledgeBaseEntrySpecification sourceSpec)
     {
+        if (sourceSpec is { EntryType: EntryType.Compound, SubEntries.Count: > 0 })
+        {
+            return new EntrySpecification.CompoundEntry(sourceSpec.EntryKey, MapEntrySpecifications(sourceSpec.SubEntries));
+        }
+        
         return sourceSpec.EntryType switch
         {
             EntryType.PlainText => new EntrySpecification.PlainText(sourceSpec.EntryKey),
             EntryType.Tooltip => new EntrySpecification.Tooltip(sourceSpec.EntryKey),
             EntryType.Markdown => new EntrySpecification.Markdown(sourceSpec.EntryKey),
-            _ => throw new InvalidOperationException("Cannot map entry type to entry specification")
-            // EntryType.Compound => new EntrySpecification.CompoundEntry(sourceSpec.EntryKey, MapEntrySpecifications(sourceSpec.EntryProperties))
+            _ => throw new InvalidOperationException($"Cannot map entry type {sourceSpec.EntryType} to entry specification")
         };
     }
 }

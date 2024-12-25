@@ -11,7 +11,7 @@ public record KnowledgeBaseEntrySpecification
 {
     public required EntryType EntryType { get; init; }
     public string? EntryKey { get; init; }
-    public Dictionary<string, string>? EntryProperties { get; init; } = new();
+    public Dictionary<string, KnowledgeBaseEntrySpecification>? SubEntries { get; init; } = new();
 }
 
 public enum EntryType
@@ -19,5 +19,5 @@ public enum EntryType
     PlainText = 1,
     Tooltip = 2,
     Markdown = 3,
-    Compound = 4,
+    Compound = 4
 };
