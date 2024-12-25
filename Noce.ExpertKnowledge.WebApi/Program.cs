@@ -21,10 +21,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapControllers();
 app.UseHttpsRedirection();
-
-app.MapGet("/weatherforecast", () => 1)
-    .WithName("GetWeatherForecast")
-    .WithOpenApi();
 
 app.Run();

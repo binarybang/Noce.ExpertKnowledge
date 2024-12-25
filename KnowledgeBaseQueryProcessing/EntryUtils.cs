@@ -6,9 +6,9 @@ internal static class EntryUtils
 {
     private const string KeySectionSeparator = ".";
     
-    internal static string BuildFullEntryKey(string entryPrefix, string entryElementKey, string entryDefaultKey)
+    internal static string BuildFullEntryKey(string entryPrefix, string entryKey, string entryDefaultKey)
     {
-        var localEntryKey = string.IsNullOrWhiteSpace(entryElementKey) ? entryDefaultKey : entryElementKey;
+        var localEntryKey = string.IsNullOrWhiteSpace(entryKey) ? entryDefaultKey : entryKey;
         return CombineEntryKeySegments(entryPrefix, localEntryKey);
     }
     

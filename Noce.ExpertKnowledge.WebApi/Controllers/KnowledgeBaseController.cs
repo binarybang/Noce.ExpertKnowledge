@@ -1,30 +1,33 @@
-﻿using MapsterMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
 using Noce.ExpertKnowledge.WebApi.Contracts;
+using Noce.ExpertKnowledge.WebApi.Mapping;
 
 namespace Noce.ExpertKnowledge.WebApi.Controllers;
 
 [ApiController]
-[Route("{controller}/{action}")]
+[Route("[controller]")]
 public class KnowledgeBaseController : ControllerBase
 {
     private readonly IKnowledgeBaseQueryProcessor _knowledgeBaseQueryProcessor;
-    private readonly IMapper _mapper;
+    private readonly IKnowledgeBaseRequestMapper _requestMapper;
+    private readonly IKnowledgeBaseResponseMapper _responseMapper;
 
     public KnowledgeBaseController(
         IKnowledgeBaseQueryProcessor knowledgeBaseQueryProcessor,
-        IMapper mapper)
+        IKnowledgeBaseRequestMapper requestMapper, 
+        IKnowledgeBaseResponseMapper responseMapper)
     {
         _knowledgeBaseQueryProcessor = knowledgeBaseQueryProcessor;
-        _mapper = mapper;
+        _requestMapper = requestMapper;
+        _responseMapper = responseMapper;
     }
 
     [HttpPost("knowledge-entries")]
     public async Task<KnowledgeBaseResponse> QueryKnowledgeBase(KnowledgeBaseRequest request, CancellationToken cancellationToken)
     {
-        var knowledgeBaseQuery = _mapper.Map<KnowledgeBaseQuery>(request);
-        var result = await _knowledgeBaseQueryProcessor.QueryKnowledgeBase(knowledgeBaseQuery, cancellationToken);
-        return _mapper.Map<KnowledgeBaseResponse>(result);
+        var knowledgeBaseQuery = _requestMapper.MapToKnowledgeBaseQuery(request);
+        var queryResult = await _knowledgeBaseQueryProcessor.QueryKnowledgeBase(knowledgeBaseQuery, cancellationToken);
+        return _responseMapper.MapToKnowledgeBaseResponse(queryResult);
     }
 }

@@ -5,5 +5,5 @@ namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecificationPr
 public interface IEntrySpecificationsEncoder
 {
     IEnumerable<FlatKnowledgeBaseEntrySpecification> EncodeEntrySpecifications(
-        string elementKeyPrefix, Dictionary<string, EntrySpecification> entrySpecs);
+        string entryKeyPrefix, Dictionary<string, EntrySpecification> entrySpecs);
 }

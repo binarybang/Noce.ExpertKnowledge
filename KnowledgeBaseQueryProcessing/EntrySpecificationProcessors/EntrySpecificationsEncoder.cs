@@ -27,19 +27,19 @@ internal class EntrySpecificationsEncoder : IEntrySpecificationsEncoder
     }
 
     public IEnumerable<FlatKnowledgeBaseEntrySpecification> EncodeEntrySpecifications(
-        string elementKeyPrefix,
+        string entryKeyPrefix,
         Dictionary<string, EntrySpecification> entrySpecs)
     {
         return entrySpecs
-            .SelectMany(kv => EncodeEntrySpecification(elementKeyPrefix, kv.Key, kv.Value));
+            .SelectMany(kv => EncodeEntrySpecification(entryKeyPrefix, kv.Key, kv.Value));
     }
 
     private IEnumerable<FlatKnowledgeBaseEntrySpecification> EncodeEntrySpecification(
-        string elementKeyPrefix,
+        string entryKeyPrefix,
         string entryDefaultKey,
         EntrySpecification entrySpec)
     {
-        var fullEntryKey = EntryUtils.BuildFullEntryKey(elementKeyPrefix, entrySpec.ElementKey, entryDefaultKey);
+        var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec.EntryKey, entryDefaultKey);
         
         var flatEntries = entrySpec switch
         {

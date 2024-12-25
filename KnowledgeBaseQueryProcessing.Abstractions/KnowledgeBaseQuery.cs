@@ -6,14 +6,15 @@ public record KnowledgeBaseQuery
     public required Dictionary<string, EntrySpecification> Entries { get; init; }
 }
 
-public record EntrySpecification
+public record EntrySpecification(string EntryKey)
 {
-    public required string ElementKey { get; init; }
     
-    public sealed record PlainText() : EntrySpecification;
-    public sealed record Tooltip() : EntrySpecification;
-    public sealed record Markdown() : EntrySpecification;
-    public sealed record CompoundEntry(Dictionary<string, EntrySpecification> SubEntries) : EntrySpecification;
+    public sealed record PlainText(string EntryKey) : EntrySpecification(EntryKey);
+    public sealed record Tooltip(string EntryKey) : EntrySpecification(EntryKey);
+    public sealed record Markdown(string EntryKey) : EntrySpecification(EntryKey);
+    public sealed record CompoundEntry(
+        string EntryKey,
+        Dictionary<string, EntrySpecification> SubEntries) : EntrySpecification(EntryKey);
 }
 
 public record FlatKnowledgeBaseEntrySpecification(string EntryKey)

@@ -27,7 +27,7 @@ internal class EntrySpecificationsDecoder : IEntrySpecificationsDecoder
     }
 
     public Dictionary<string, KnowledgeBaseEntry> DecodeEntrySpecifications(
-        string elementKeyPrefix,
+        string entryKeyPrefix,
         Dictionary<string, EntrySpecification> entrySpecs,
         Dictionary<string, FlatKnowledgeBaseEntry> resolvedFlatEntries)
     {
@@ -35,7 +35,7 @@ internal class EntrySpecificationsDecoder : IEntrySpecificationsDecoder
         foreach (var kv in entrySpecs)
         {
             var entrySpec = kv.Value;
-            var fullEntryKey = EntryUtils.BuildFullEntryKey(elementKeyPrefix, entrySpec.ElementKey, kv.Key);
+            var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec.EntryKey, kv.Key);
             var resolvedEntry = kv.Value switch
             {
                 EntrySpecification.PlainText ptSpec => _plainTextDecoder.Decode(ptSpec, fullEntryKey, resolvedFlatEntries),
