@@ -6,7 +6,7 @@ using Noce.ExpertKnowledge.WebApi.Mapping;
 namespace Noce.ExpertKnowledge.WebApi.Controllers;
 
 [ApiController]
-[Route("api/knowledge-base")]
+[Route("knowledge-base")]
 public class KnowledgeBaseController : ControllerBase
 {
     private readonly IKnowledgeBaseQueryProcessor _knowledgeBaseQueryProcessor;

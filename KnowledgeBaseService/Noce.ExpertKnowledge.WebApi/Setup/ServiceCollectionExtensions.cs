@@ -1,4 +1,5 @@
 ﻿using Infrastructure.DummyResolver;
+using Microsoft.OpenApi.Models;
 using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing;
 using Noce.ExpertKnowledge.WebApi.Mapping;
 
@@ -16,5 +17,17 @@ internal static class ServiceCollectionExtensions
         return services
             .AddDummyFlatEntryResolver()
             .AddKnowledgeBaseContractMapping();
+    }
+
+    internal static IServiceCollection AddSwagger(this IServiceCollection services, IConfiguration configuration)
+    {
+        var serverUrl = configuration.GetValue<string>("SwaggerUi:ServerUrl");
+        if (!string.IsNullOrWhiteSpace(serverUrl))
+        {
+            return services
+                .AddSwaggerGen(o => o.AddServer(new OpenApiServer {Url = serverUrl}));
+        }
+        
+        return services.AddSwaggerGen();
     }
 }
