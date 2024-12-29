@@ -25,7 +25,7 @@ public class KnowledgeBaseResponseMapper : IKnowledgeBaseResponseMapper
             },
             KnowledgeBaseEntry.Markdown markdown => new Dictionary<string, string>
             {
-                { "content", markdown.MarkdownContent },
+                { "markdownContent", markdown.MarkdownContent },
             },
             KnowledgeBaseEntry.CompoundEntry compoundEntry => MapKnowledgeBaseEntries(compoundEntry.Entries),
             KnowledgeBaseEntry.MissingEntryPlaceholder _ => string.Empty,

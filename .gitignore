@@ -1,5 +1,37 @@
-# Created by https://www.toptal.com/developers/gitignore/api/dotnetcore,rider,visualstudio
-# Edit at https://www.toptal.com/developers/gitignore?templates=dotnetcore,rider,visualstudio
+# Created by https://www.toptal.com/developers/gitignore/api/rider,dotnetcore,visualstudio,angular
+# Edit at https://www.toptal.com/developers/gitignore?templates=rider,dotnetcore,visualstudio,angular
+
+### Angular ###
+## Angular ##
+# compiled output
+dist/
+tmp/
+app/**/*.js
+app/**/*.js.map
+
+# dependencies
+node_modules/
+bower_components/
+
+# IDEs and editors
+.idea/
+
+# misc
+.sass-cache/
+connect.lock/
+coverage/
+libpeerconnection.log/
+npm-debug.log
+testem.log
+typings/
+.angular/
+
+# e2e
+e2e/*.js
+e2e/*.map
+
+# System Files
+.DS_Store/
 
 ### DotnetCore ###
 # .NET Core build folders
@@ -253,7 +285,6 @@ nCrunchTemp_*
 AutoTest.Net/
 
 # Web workbench (sass)
-.sass-cache/
 
 # Installshield output folder
 [Ee]xpress/
@@ -375,7 +406,6 @@ FakesAssemblies/
 
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
-node_modules/
 
 # Visual Studio 6 build log
 *.plg
@@ -490,4 +520,4 @@ FodyWeavers.xsd
 ### VisualStudio Patch ###
 # Additional files built by Visual Studio
 
-# End of https://www.toptal.com/developers/gitignore/api/dotnetcore,rider,visualstudio
+# End of https://www.toptal.com/developers/gitignore/api/rider,dotnetcore,visualstudio,angular

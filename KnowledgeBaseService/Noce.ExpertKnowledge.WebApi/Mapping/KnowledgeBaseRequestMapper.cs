@@ -10,7 +10,7 @@ public class KnowledgeBaseRequestMapper : IKnowledgeBaseRequestMapper
         return new KnowledgeBaseQuery
         {
             ElementPrefix = request.EntryKeyPrefix,
-            Entries = MapEntrySpecifications(request.EntrySpecifications)
+            Entries = MapEntrySpecifications(request.Entries)
         };
     }
 

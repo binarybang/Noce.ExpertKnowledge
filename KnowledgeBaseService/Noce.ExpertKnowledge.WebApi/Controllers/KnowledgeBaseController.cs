@@ -6,7 +6,7 @@ using Noce.ExpertKnowledge.WebApi.Mapping;
 namespace Noce.ExpertKnowledge.WebApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/knowledge-base")]
 public class KnowledgeBaseController : ControllerBase
 {
     private readonly IKnowledgeBaseQueryProcessor _knowledgeBaseQueryProcessor;
@@ -23,7 +23,7 @@ public class KnowledgeBaseController : ControllerBase
         _responseMapper = responseMapper;
     }
 
-    [HttpPost("knowledge-entries")]
+    [HttpPost("query")]
     public async Task<KnowledgeBaseResponse> QueryKnowledgeBase(KnowledgeBaseRequest request, CancellationToken cancellationToken)
     {
         var knowledgeBaseQuery = _requestMapper.MapToKnowledgeBaseQuery(request);

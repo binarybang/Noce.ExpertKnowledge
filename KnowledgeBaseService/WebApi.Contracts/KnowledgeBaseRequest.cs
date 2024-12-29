@@ -2,9 +2,8 @@
 
 public record KnowledgeBaseRequest
 {
-    public required string QueryKey { get; init; }
     public required string EntryKeyPrefix { get; init; }
-    public required Dictionary<string, KnowledgeBaseEntrySpecification> EntrySpecifications { get; init; }
+    public required Dictionary<string, KnowledgeBaseEntrySpecification> Entries { get; init; }
 }
 
 public record KnowledgeBaseEntrySpecification
