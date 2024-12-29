@@ -9,6 +9,7 @@ import {
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
 import {PrettyJsonPipe} from '../utils/pretty-json.pipe';
+import {TooltipKnowledgeEntry} from '../knowledge-base/knowledge-base-query';
 
 @Component({
   selector: 'app-query-resolution-demo',
@@ -24,6 +25,9 @@ export class QueryResolutionDemoComponent {
   private readonly activatedRoute: ActivatedRoute = inject(ActivatedRoute);
 
   protected readonly pageDataSample$: Observable<PageDataSample> = this.activatedRoute.data.pipe(map(d => d['pageDataSample']));
+  protected readonly mappedSubsample$: Observable<TooltipKnowledgeEntry> = this.pageDataSample$
+    .pipe(map(s => s.personalIdTooltip));
+
   protected readonly secondDataSample$: Observable<SecondDataSample> = this.knowledgeBaseService.queryKnowledgeBase(buildSecondDataSampleKnowledgeBaseQuery());
   protected readonly badDataSample$: Observable<BadDataSample> = this.knowledgeBaseService.queryKnowledgeBase(buildBadDataSampleKnowledgeBaseQuery())
 }

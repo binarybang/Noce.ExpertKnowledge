@@ -4,6 +4,11 @@
 <pre>{{pageDataSample$ | async | prettyJson}}</pre>
 
 <p>
+  <span>Result has the type specified in request type declaration, here's a property of the query result above:</span>
+</p>
+<pre>{{(mappedSubsample$ | async) | prettyJson}}</pre>
+
+<p>
   <span>Query resolved with service call:</span>
 </p>
 <pre>{{secondDataSample$ | async | prettyJson}}</pre>
