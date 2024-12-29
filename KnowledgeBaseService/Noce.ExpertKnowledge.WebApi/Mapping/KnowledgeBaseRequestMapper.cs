@@ -17,23 +17,23 @@ public class KnowledgeBaseRequestMapper : IKnowledgeBaseRequestMapper
     private static Dictionary<string, EntrySpecification> MapEntrySpecifications(Dictionary<string, KnowledgeBaseEntrySpecification> sourceSpecs)
     {
         return sourceSpecs
-            .Select(kv => (kv.Key, MappedSpec: MapEntrySpecification(kv.Value)))
+            .Select(kv => (kv.Key, MappedSpec: MapEntrySpecification(kv.Value, kv.Key)))
             .ToDictionary(kv => kv.Key, kv => kv.MappedSpec);
     }
 
-    private static EntrySpecification MapEntrySpecification(KnowledgeBaseEntrySpecification sourceSpec)
+    private static EntrySpecification MapEntrySpecification(KnowledgeBaseEntrySpecification sourceSpec, string entrySpecKey)
     {
         if (sourceSpec is { EntryType: EntryType.Compound, SubEntries.Count: > 0 })
         {
-            return new EntrySpecification.CompoundEntry(sourceSpec.EntryKey, MapEntrySpecifications(sourceSpec.SubEntries));
+            return new EntrySpecification.CompoundEntry(sourceSpec.EntryKey, entrySpecKey, MapEntrySpecifications(sourceSpec.SubEntries));
         }
         
         return sourceSpec.EntryType switch
         {
-            EntryType.PlainText => new EntrySpecification.PlainText(sourceSpec.EntryKey),
-            EntryType.Tooltip => new EntrySpecification.Tooltip(sourceSpec.EntryKey),
-            EntryType.Markdown => new EntrySpecification.Markdown(sourceSpec.EntryKey),
-            _ => throw new InvalidOperationException($"Cannot map entry type {sourceSpec.EntryType} to entry specification")
+            EntryType.PlainText => new EntrySpecification.PlainText(sourceSpec.EntryKey, entrySpecKey),
+            EntryType.Tooltip => new EntrySpecification.Tooltip(sourceSpec.EntryKey, entrySpecKey),
+            EntryType.Markdown => new EntrySpecification.Markdown(sourceSpec.EntryKey, entrySpecKey),
+            _ => new EntrySpecification.Unsupported(sourceSpec.EntryKey, entrySpecKey),
         };
     }
 }

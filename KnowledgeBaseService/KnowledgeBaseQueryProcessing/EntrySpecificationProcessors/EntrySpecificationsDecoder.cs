@@ -45,7 +45,7 @@ internal class EntrySpecificationsDecoder : IEntrySpecificationsDecoder
                 _ => new KnowledgeBaseEntry.MissingEntryPlaceholder()
             };
 
-            if (resolvedEntry is KnowledgeBaseEntry.MissingEntryPlaceholder missingEntry)
+            if (resolvedEntry is KnowledgeBaseEntry.MissingEntryPlaceholder)
             {
                 _logger.LogWarning("Missing entry decoder for spec {EntrySpecification}", entrySpec);
             }

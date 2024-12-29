@@ -17,6 +17,10 @@ type KnowledgeCompoundEntry = {
   [key in string]: KnowledgeEntryContent;
 }
 
+export type UnsupportedEntry = {
+  unsafeData: string;
+}
+
 type KnowledgeEntryContent = string | TooltipKnowledgeEntry | MarkdownKnowledgeEntry | KnowledgeCompoundEntry;
 
 type SubEntries<T extends KnowledgeEntryContent> = T extends KnowledgeCompoundEntry ? Entries<T> : never;
@@ -25,7 +29,8 @@ export enum EntryType {
   PlainText = 1,
   Tooltip = 2,
   Markdown = 3,
-  Compound = 4
+  Compound = 4,
+  Unsupported = 5,
 }
 
 export type KnowledgeBaseEntrySpecification<T extends KnowledgeEntryContent> = {
@@ -61,4 +66,10 @@ export const keyedCompoundEntry = <T extends KnowledgeCompoundEntry>(
   entryKey,
   entryType: EntryType.Compound,
   subEntries
+});
+
+
+export const unsupportedEntry = (entryKey?: string): KnowledgeBaseEntrySpecification<UnsupportedEntry> => ({
+  entryKey: entryKey,
+  entryType: EntryType.Unsupported,
 });

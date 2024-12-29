@@ -9,7 +9,10 @@ public class DummyKnowledgeBaseEntryResolver : IFlatKnowledgeBaseEntryResolver
         CancellationToken cancellationToken)
     {
         return Task.FromResult(entrySpecs
-            .Select(es => new FlatKnowledgeBaseEntry(es.EntryKey, $"Resolved {es.EntryKey}"))
-            .ToDictionary(es => es.EntryKey, es => es));
+            .Select(es => es.EntryKey.Contains("missing", StringComparison.InvariantCultureIgnoreCase)
+                ? null
+                : new FlatKnowledgeBaseEntry(es.EntryKey, $"Resolved {es.EntryKey}"))
+            .Where(e => e is not null)
+            .ToDictionary(es => es!.EntryKey, es => es!));
     }
 }

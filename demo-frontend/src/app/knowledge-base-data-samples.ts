@@ -2,7 +2,7 @@
   compoundEntry,
   markdownEntry, MarkdownKnowledgeEntry,
   textEntry,
-  tooltipEntry, TooltipKnowledgeEntry
+  tooltipEntry, TooltipKnowledgeEntry, unsupportedEntry, UnsupportedEntry
 } from './knowledge-base/knowledge-base-query';
 import {KnowledgeBaseRequest} from './knowledge-base/knowledge-base-request';
 
@@ -40,6 +40,22 @@ export function buildSecondDataSampleKnowledgeBaseQuery(): KnowledgeBaseRequest<
         newCustomer: textEntry(),
         existingCustomer: textEntry()
       })
+    }
+  }
+}
+
+
+export type BadDataSample = {
+  noDataDemo: TooltipKnowledgeEntry;
+  unsupportedEntry: UnsupportedEntry;
+}
+
+export function buildBadDataSampleKnowledgeBaseQuery(): KnowledgeBaseRequest<BadDataSample> {
+  return {
+    entryKeyPrefix: 'product.badData',
+    entries: {
+      noDataDemo: tooltipEntry('missingEntry'),
+      unsupportedEntry: unsupportedEntry()
     }
   }
 }
