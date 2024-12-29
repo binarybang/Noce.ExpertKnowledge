@@ -1,10 +1,10 @@
 ﻿import {
   compoundEntry,
-  KnowledgeBaseRequest,
   markdownEntry, MarkdownKnowledgeEntry,
   textEntry,
   tooltipEntry, TooltipKnowledgeEntry
-} from './knowledge-base/knowledge-base-request';
+} from './knowledge-base/knowledge-base-query';
+import {KnowledgeBaseRequest} from './knowledge-base/knowledge-base-request';
 
 export type PageDataSample = {
   personalDataHeader: string;
