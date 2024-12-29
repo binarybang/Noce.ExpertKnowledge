@@ -32,11 +32,10 @@ internal class EntrySpecificationsDecoder : IEntrySpecificationsDecoder
         Dictionary<string, FlatKnowledgeBaseEntry> resolvedFlatEntries)
     {
         var result = new Dictionary<string, KnowledgeBaseEntry>();
-        foreach (var kv in entrySpecs)
+        foreach (var (key, entrySpec) in entrySpecs)
         {
-            var entrySpec = kv.Value;
-            var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec.EntryKey, kv.Key);
-            var resolvedEntry = kv.Value switch
+            var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec);
+            var resolvedEntry = entrySpec switch
             {
                 EntrySpecification.PlainText ptSpec => _plainTextDecoder.Decode(ptSpec, fullEntryKey, resolvedFlatEntries),
                 EntrySpecification.Tooltip tooltipSpec => _tooltipDecoder.Decode(tooltipSpec, fullEntryKey, resolvedFlatEntries),
@@ -49,7 +48,7 @@ internal class EntrySpecificationsDecoder : IEntrySpecificationsDecoder
             {
                 _logger.LogWarning("Missing entry decoder for spec {EntrySpecification}", entrySpec);
             }
-            result[kv.Key] = resolvedEntry;
+            result[key] = resolvedEntry;
         }
         
         return result;

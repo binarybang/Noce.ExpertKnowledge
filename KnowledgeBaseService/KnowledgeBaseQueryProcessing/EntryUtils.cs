@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
 
 namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing;
 
@@ -6,10 +7,9 @@ internal static class EntryUtils
 {
     private const string KeySectionSeparator = ".";
     
-    internal static string BuildFullEntryKey(string entryPrefix, string? entryKey, string entryDefaultKey)
+    internal static string BuildFullEntryKey(string entryPrefix, EntrySpecification entrySpec)
     {
-        var localEntryKey = string.IsNullOrWhiteSpace(entryKey) ? entryDefaultKey : entryKey;
-        return CombineEntryKeySegments(entryPrefix, localEntryKey);
+        return CombineEntryKeySegments(entryPrefix, entrySpec.EntryKeyForResolution);
     }
     
     internal static string CombineEntryKeySegments(params string[] segments)

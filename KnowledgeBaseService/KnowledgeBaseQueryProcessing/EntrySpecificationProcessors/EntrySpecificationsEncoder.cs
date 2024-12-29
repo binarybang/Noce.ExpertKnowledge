@@ -31,15 +31,14 @@ internal class EntrySpecificationsEncoder : IEntrySpecificationsEncoder
         Dictionary<string, EntrySpecification> entrySpecs)
     {
         return entrySpecs
-            .SelectMany(kv => EncodeEntrySpecification(entryKeyPrefix, kv.Key, kv.Value));
+            .SelectMany(kv => EncodeEntrySpecification(entryKeyPrefix, kv.Value));
     }
 
     private IEnumerable<FlatKnowledgeBaseEntrySpecification> EncodeEntrySpecification(
         string entryKeyPrefix,
-        string entryDefaultKey,
         EntrySpecification entrySpec)
     {
-        var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec.EntryKey, entryDefaultKey);
+        var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec);
         
         var flatEntries = entrySpec switch
         {

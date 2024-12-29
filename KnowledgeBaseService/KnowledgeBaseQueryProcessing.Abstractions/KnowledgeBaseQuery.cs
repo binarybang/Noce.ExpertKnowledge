@@ -8,6 +8,8 @@ public record KnowledgeBaseQuery
 
 public record EntrySpecification(string? EntryKey, string EntrySpecKey)
 {
+    public string EntryKeyForResolution => EntryKey ?? EntrySpecKey;
+    
     public sealed record Unsupported(string? EntryKey, string EntrySpecKey) : EntrySpecification(EntryKey, EntrySpecKey);
     public sealed record PlainText(string? EntryKey, string EntrySpecKey) : EntrySpecification(EntryKey, EntrySpecKey);
     public sealed record Tooltip(string? EntryKey, string EntrySpecKey) : EntrySpecification(EntryKey, EntrySpecKey);

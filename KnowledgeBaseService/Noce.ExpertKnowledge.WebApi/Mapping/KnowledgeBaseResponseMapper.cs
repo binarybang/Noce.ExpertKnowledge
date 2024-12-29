@@ -13,7 +13,7 @@ public class KnowledgeBaseResponseMapper : IKnowledgeBaseResponseMapper
         };
     }
 
-    private static object MapKnowledgeBaseEntry(KnowledgeBaseEntry sourceEntry)
+    private static object? MapKnowledgeBaseEntry(KnowledgeBaseEntry sourceEntry)
     {
         return sourceEntry switch
         {
@@ -28,7 +28,7 @@ public class KnowledgeBaseResponseMapper : IKnowledgeBaseResponseMapper
                 { "markdownContent", markdown.MarkdownContent },
             },
             KnowledgeBaseEntry.CompoundEntry compoundEntry => MapKnowledgeBaseEntries(compoundEntry.Entries),
-            KnowledgeBaseEntry.MissingEntryPlaceholder _ => string.Empty,
+            KnowledgeBaseEntry.MissingEntryPlaceholder => null,
             _ => throw new ArgumentOutOfRangeException(nameof(sourceEntry))
         };
     }
