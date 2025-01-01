@@ -1,11 +1,13 @@
 ﻿using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.QueryResult;
 
 namespace Infrastructure.DummyResolver;
 
 public class DummyKnowledgeBaseEntryResolver : IFlatKnowledgeBaseEntryResolver
 {
     public Task<Dictionary<string, FlatKnowledgeBaseEntry>> ResolveEntries(
-        List<FlatKnowledgeBaseEntrySpecification> entrySpecs,
+        List<FlatKnowledgeBaseEntrySpec> entrySpecs,
         CancellationToken cancellationToken)
     {
         return Task.FromResult(entrySpecs
@@ -14,7 +16,7 @@ public class DummyKnowledgeBaseEntryResolver : IFlatKnowledgeBaseEntryResolver
             .ToDictionary(es => es!.EntryKey, es => es!));
     }
 
-    private static FlatKnowledgeBaseEntry? ResolveEntrySpec(FlatKnowledgeBaseEntrySpecification entrySpec)
+    private static FlatKnowledgeBaseEntry? ResolveEntrySpec(FlatKnowledgeBaseEntrySpec entrySpec)
     {
         return entrySpec.EntryKey switch
         {

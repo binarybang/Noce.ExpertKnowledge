@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
-using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecificationProcessors;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecProcessors;
 
 namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing;
 
@@ -11,21 +12,21 @@ public static class ServiceCollectionExtensions
         return services
             .AddTransient<IKnowledgeBaseQueryProcessor, KnowledgeBaseQueryProcessor>()
             .AddTransient<IQueryResultBuilder, QueryResultBuilder>()
-            .AddTransient<IEntrySpecificationsEncoder, EntrySpecificationsEncoder>()
-            .AddTransient<IEntrySpecificationsDecoder, EntrySpecificationsDecoder>()
+            .AddTransient<IEntrySpecsEncoder, EntrySpecsEncoder>()
+            .AddTransient<IEntrySpecDecoder, EntrySpecDecoder>()
             .AddEntrySpecificationProcessors();
     }
 
     private static IServiceCollection AddEntrySpecificationProcessors(this IServiceCollection services)
     {
         return services
-            .AddTransient<IEntrySpecificationProcessor<EntrySpecification.PlainText>,
-                PlainTextEntrySpecificationProcessor>()
-            .AddTransient<IEntrySpecificationProcessor<EntrySpecification.Tooltip>,
-                TooltipEntrySpecificationProcessor>()
-            .AddTransient<IEntrySpecificationProcessor<EntrySpecification.Markdown>,
-                MarkdownEntrySpecificationProcessor>()
-            .AddTransient<IRecursiveEntrySpecificationProcessor<EntrySpecification.CompoundEntry>,
-                CompoundEntrySpecificationProcessor>();
+            .AddTransient<IEntrySpecProcessor<EntrySpec.PlainText>,
+                PlainTextEntrySpecProcessor>()
+            .AddTransient<IEntrySpecProcessor<EntrySpec.Tooltip>,
+                TooltipEntrySpecProcessor>()
+            .AddTransient<IEntrySpecProcessor<EntrySpec.Markdown>,
+                MarkdownEntrySpecProcessor>()
+            .AddTransient<IRecursiveEntrySpecProcessor<EntrySpec.CompoundEntry>,
+                CompoundEntrySpecProcessor>();
     }
 }

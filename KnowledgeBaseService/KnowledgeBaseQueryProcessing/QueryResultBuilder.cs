@@ -1,22 +1,24 @@
 ﻿using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
-using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecificationProcessors;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.QueryResult;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecProcessors;
 
 namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing;
 
 internal class QueryResultBuilder : IQueryResultBuilder
 {
-    private readonly IEntrySpecificationsDecoder _entrySpecificationsDecoder;
+    private readonly IEntrySpecDecoder _entrySpecDecoder;
 
-    public QueryResultBuilder(IEntrySpecificationsDecoder entrySpecificationsDecoder)
+    public QueryResultBuilder(IEntrySpecDecoder entrySpecDecoder)
     {
-        _entrySpecificationsDecoder = entrySpecificationsDecoder;
+        _entrySpecDecoder = entrySpecDecoder;
     }
 
     public KnowledgeBaseQueryResult BuildQueryResult(
         KnowledgeBaseQuery query,
         Dictionary<string, FlatKnowledgeBaseEntry> resolvedFlatEntries)
     {
-        var entries = _entrySpecificationsDecoder.DecodeEntrySpecifications(query.ElementPrefix, query.Entries, resolvedFlatEntries);
+        var entries = _entrySpecDecoder.DecodeEntrySpecs(query.ElementPrefix, query.Entries, resolvedFlatEntries);
         return new KnowledgeBaseQueryResult
         {
             Entries = entries

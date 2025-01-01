@@ -1,4 +1,5 @@
 ﻿using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
+using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
 using Noce.ExpertKnowledge.WebApi.Contracts;
 
 namespace Noce.ExpertKnowledge.WebApi.Mapping;
