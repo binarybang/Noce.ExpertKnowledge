@@ -1,4 +1,4 @@
-﻿namespace Noce.ExpertKnowledge.WebApi.Contracts;
+﻿namespace Noce.ExpertKnowledge.WebApi.Contracts.KnowledgeBaseRequest;
 
 public record KnowledgeBaseRequest
 {
@@ -10,6 +10,8 @@ public record KnowledgeBaseEntrySpec
 {
     public required EntryType EntryType { get; init; }
     public string? EntryKey { get; init; }
+    
+    public Dictionary<string, object>? EntryOptions { get; init; } = new();
     public Dictionary<string, KnowledgeBaseEntrySpec>? SubEntries { get; init; } = new();
 }
 

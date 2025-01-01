@@ -19,6 +19,7 @@ public class KnowledgeBaseResponseMapper : IKnowledgeBaseResponseMapper
         return sourceEntry switch
         {
             KnowledgeBaseEntry.PlainText plainText => plainText.Text,
+            KnowledgeBaseEntry.TextWithPlaceholders textWithPlaceholders => textWithPlaceholders.Text,
             KnowledgeBaseEntry.Tooltip tooltip => new Dictionary<string, string>
             {
                 { "title", tooltip.Title },
@@ -34,7 +35,7 @@ public class KnowledgeBaseResponseMapper : IKnowledgeBaseResponseMapper
         };
     }
 
-    private static Dictionary<string, object> MapKnowledgeBaseEntries(
+    private static Dictionary<string, object?> MapKnowledgeBaseEntries(
         Dictionary<string, KnowledgeBaseEntry> sourceEntries)
     {
         return sourceEntries

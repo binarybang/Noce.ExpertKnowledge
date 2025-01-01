@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
 using Noce.ExpertKnowledge.WebApi.Contracts;
+using Noce.ExpertKnowledge.WebApi.Contracts.KnowledgeBaseRequest;
 using Noce.ExpertKnowledge.WebApi.Mapping;
 
 namespace Noce.ExpertKnowledge.WebApi.Controllers;
