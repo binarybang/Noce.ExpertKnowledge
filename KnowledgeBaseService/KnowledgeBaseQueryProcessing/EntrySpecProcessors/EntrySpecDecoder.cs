@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Logging;
-using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
 using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
 using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.QueryResult;
 
@@ -8,6 +7,7 @@ namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecProcessors;
 internal class EntrySpecDecoder : IEntrySpecDecoder
 {
     private readonly IEntrySpecProcessor<EntrySpec.PlainText> _plainTextDecoder;
+    private readonly IEntrySpecProcessor<EntrySpec.TextWithPlaceholders> _textWithPlaceholdersDecoder;
     private readonly IEntrySpecProcessor<EntrySpec.Tooltip> _tooltipDecoder;
     private readonly IEntrySpecProcessor<EntrySpec.Markdown> _markdownDecoder;
     private readonly IRecursiveEntrySpecProcessor<EntrySpec.CompoundEntry> _compoundDecoder;
@@ -16,12 +16,14 @@ internal class EntrySpecDecoder : IEntrySpecDecoder
 
     public EntrySpecDecoder(
         IEntrySpecProcessor<EntrySpec.PlainText> plainTextDecoder,
+        IEntrySpecProcessor<EntrySpec.TextWithPlaceholders> textWithPlaceholdersDecoder,
         IEntrySpecProcessor<EntrySpec.Tooltip> tooltipDecoder,
         IEntrySpecProcessor<EntrySpec.Markdown> markdownDecoder,
         IRecursiveEntrySpecProcessor<EntrySpec.CompoundEntry> compoundDecoder,
         ILogger<EntrySpecDecoder> logger)
     {
         _plainTextDecoder = plainTextDecoder;
+        _textWithPlaceholdersDecoder = textWithPlaceholdersDecoder;
         _tooltipDecoder = tooltipDecoder;
         _markdownDecoder = markdownDecoder;
         _compoundDecoder = compoundDecoder;
@@ -36,10 +38,11 @@ internal class EntrySpecDecoder : IEntrySpecDecoder
         var result = new Dictionary<string, KnowledgeBaseEntry>();
         foreach (var (key, entrySpec) in entrySpecs)
         {
-            var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec);
+            var fullEntryKey = EntryKeyUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec);
             var resolvedEntry = entrySpec switch
             {
                 EntrySpec.PlainText ptSpec => _plainTextDecoder.Decode(ptSpec, fullEntryKey, resolvedFlatEntries),
+                EntrySpec.TextWithPlaceholders twpSpec => _textWithPlaceholdersDecoder.Decode(twpSpec, fullEntryKey, resolvedFlatEntries),
                 EntrySpec.Tooltip tooltipSpec => _tooltipDecoder.Decode(tooltipSpec, fullEntryKey, resolvedFlatEntries),
                 EntrySpec.Markdown markdownSpec => _markdownDecoder.Decode(markdownSpec, fullEntryKey, resolvedFlatEntries), 
                 EntrySpec.CompoundEntry compoundSpec => _compoundDecoder.DecodeRecursive(compoundSpec, fullEntryKey, resolvedFlatEntries, this),

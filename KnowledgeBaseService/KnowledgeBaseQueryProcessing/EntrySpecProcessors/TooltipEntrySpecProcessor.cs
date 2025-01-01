@@ -11,8 +11,8 @@ public class TooltipEntrySpecProcessor : IEntrySpecProcessor<EntrySpec.Tooltip>
     
     public List<FlatKnowledgeBaseEntrySpec> Encode(EntrySpec.Tooltip entrySpec, string fullEntryKey)
     {
-        var titleKey = EntryUtils.CombineEntryKeySegments(fullEntryKey, TooltipTitleKey);
-        var contentKey = EntryUtils.CombineEntryKeySegments(fullEntryKey, TooltipContentKey);
+        var titleKey = EntryKeyUtils.CombineEntryKeySegments(fullEntryKey, TooltipTitleKey);
+        var contentKey = EntryKeyUtils.CombineEntryKeySegments(fullEntryKey, TooltipContentKey);
         
         return [
             new FlatKnowledgeBaseEntrySpec(titleKey),
@@ -25,8 +25,8 @@ public class TooltipEntrySpecProcessor : IEntrySpecProcessor<EntrySpec.Tooltip>
         string fullEntryKey,
         Dictionary<string, FlatKnowledgeBaseEntry> resolvedFlatEntries)
     {
-        var titleKey = EntryUtils.CombineEntryKeySegments(fullEntryKey, TooltipTitleKey);
-        var contentKey = EntryUtils.CombineEntryKeySegments(fullEntryKey, TooltipContentKey);
+        var titleKey = EntryKeyUtils.CombineEntryKeySegments(fullEntryKey, TooltipTitleKey);
+        var contentKey = EntryKeyUtils.CombineEntryKeySegments(fullEntryKey, TooltipContentKey);
 
         return new KnowledgeBaseEntry.Tooltip(
             resolvedFlatEntries.GetRawValueOrEmpty(titleKey),

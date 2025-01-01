@@ -24,17 +24,19 @@ public class KnowledgeBaseRequestMapper : IKnowledgeBaseRequestMapper
 
     private static EntrySpec MapEntrySpecification(KnowledgeBaseEntrySpec sourceSpec, string entrySpecKey)
     {
+        var entryKey = sourceSpec.EntryKey ?? entrySpecKey;
+        
         if (sourceSpec is { EntryType: EntryType.Compound, SubEntries.Count: > 0 })
         {
-            return new EntrySpec.CompoundEntry(sourceSpec.EntryKey, entrySpecKey, MapEntrySpecifications(sourceSpec.SubEntries));
+            return new EntrySpec.CompoundEntry(entryKey, MapEntrySpecifications(sourceSpec.SubEntries));
         }
         
         return sourceSpec.EntryType switch
         {
-            EntryType.PlainText => new EntrySpec.PlainText(sourceSpec.EntryKey, entrySpecKey),
-            EntryType.Tooltip => new EntrySpec.Tooltip(sourceSpec.EntryKey, entrySpecKey),
-            EntryType.Markdown => new EntrySpec.Markdown(sourceSpec.EntryKey, entrySpecKey),
-            _ => new EntrySpec.Unsupported(sourceSpec.EntryKey, entrySpecKey),
+            EntryType.PlainText => new EntrySpec.PlainText(entryKey),
+            EntryType.Tooltip => new EntrySpec.Tooltip(entryKey),
+            EntryType.Markdown => new EntrySpec.Markdown(entryKey),
+            _ => new EntrySpec.Unsupported(entryKey),
         };
     }
 }

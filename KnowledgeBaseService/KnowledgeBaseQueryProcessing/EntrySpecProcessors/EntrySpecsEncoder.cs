@@ -7,6 +7,7 @@ namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.EntrySpecProcessors;
 internal class EntrySpecsEncoder : IEntrySpecsEncoder
 {
     private readonly IEntrySpecProcessor<EntrySpec.PlainText> _plainTextEncoder;
+    private readonly IEntrySpecProcessor<EntrySpec.TextWithPlaceholders> _textWithPlaceholdersEncoder;
     private readonly IEntrySpecProcessor<EntrySpec.Tooltip> _tooltipEncoder;
     private readonly IEntrySpecProcessor<EntrySpec.Markdown> _markdownEncoder;
     private readonly IRecursiveEntrySpecProcessor<EntrySpec.CompoundEntry> _compoundEncoder;
@@ -15,12 +16,14 @@ internal class EntrySpecsEncoder : IEntrySpecsEncoder
 
     public EntrySpecsEncoder(
         IEntrySpecProcessor<EntrySpec.PlainText> plainTextEncoder,
+        IEntrySpecProcessor<EntrySpec.TextWithPlaceholders> textWithPlaceholdersEncoder,
         IEntrySpecProcessor<EntrySpec.Tooltip> tooltipEncoder,
         IEntrySpecProcessor<EntrySpec.Markdown> markdownEncoder,
         IRecursiveEntrySpecProcessor<EntrySpec.CompoundEntry> compoundEncoder,
         ILogger<EntrySpecsEncoder> logger)
     {
         _plainTextEncoder = plainTextEncoder;
+        _textWithPlaceholdersEncoder = textWithPlaceholdersEncoder;
         _tooltipEncoder = tooltipEncoder;
         _markdownEncoder = markdownEncoder;
         _compoundEncoder = compoundEncoder;
@@ -39,11 +42,12 @@ internal class EntrySpecsEncoder : IEntrySpecsEncoder
         string entryKeyPrefix,
         EntrySpec entrySpec)
     {
-        var fullEntryKey = EntryUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec);
+        var fullEntryKey = EntryKeyUtils.BuildFullEntryKey(entryKeyPrefix, entrySpec);
         
         var flatEntries = entrySpec switch
         {
             EntrySpec.PlainText ptSpec => _plainTextEncoder.Encode(ptSpec, fullEntryKey),
+            EntrySpec.TextWithPlaceholders twpSpec => _textWithPlaceholdersEncoder.Encode(twpSpec, fullEntryKey),
             EntrySpec.Tooltip tooltipSpec => _tooltipEncoder.Encode(tooltipSpec, fullEntryKey),
             EntrySpec.Markdown markdownSpec => _markdownEncoder.Encode(markdownSpec, fullEntryKey), 
             EntrySpec.CompoundEntry compoundSpec => _compoundEncoder.EncodeRecursive(compoundSpec, fullEntryKey, this),

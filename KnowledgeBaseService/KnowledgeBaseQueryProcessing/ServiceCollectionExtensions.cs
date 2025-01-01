@@ -27,6 +27,8 @@ public static class ServiceCollectionExtensions
             .AddTransient<IEntrySpecProcessor<EntrySpec.Markdown>,
                 MarkdownEntrySpecProcessor>()
             .AddTransient<IRecursiveEntrySpecProcessor<EntrySpec.CompoundEntry>,
-                CompoundEntrySpecProcessor>();
+                CompoundEntrySpecProcessor>()
+            .AddTransient<IEntrySpecProcessor<EntrySpec.TextWithPlaceholders>,
+                TextWithPlaceholdersSpecProcessor>();
     }
 }

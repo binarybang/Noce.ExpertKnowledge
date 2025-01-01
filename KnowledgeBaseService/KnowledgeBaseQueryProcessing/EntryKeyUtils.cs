@@ -1,16 +1,14 @@
-﻿using System.Text;
-using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
-using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
+﻿using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
 
 namespace Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing;
 
-internal static class EntryUtils
+internal static class EntryKeyUtils
 {
     private const string KeySectionSeparator = ".";
     
     internal static string BuildFullEntryKey(string entryPrefix, EntrySpec entrySpec)
     {
-        return CombineEntryKeySegments(entryPrefix, entrySpec.EntryKeyForResolution);
+        return CombineEntryKeySegments(entryPrefix, entrySpec.EntryKey);
     }
     
     internal static string CombineEntryKeySegments(params string[] segments)
