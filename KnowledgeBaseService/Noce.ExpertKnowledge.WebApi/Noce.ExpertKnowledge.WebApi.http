@@ -1,0 +1,40 @@
+@KnowledgeApi_HostAddress = http://localhost:8100
+
+POST {{KnowledgeApi_HostAddress}}/knowledge-base/query
+Content-Type: application/json
+Accept: application/json
+
+{
+    "entryKeyPrefix": "testQuery",
+    "entries": {
+        "incomeExplanation": {
+            "entryType": 1
+        },
+        "dateOfBirth": {
+            "entryType": 2,
+            "entryKey": "dob"
+        },
+        "subtitleDetailedExplanation": {
+            "entryType": 3
+        },
+        "placeholderDemo": {
+            "entryType": 5,
+            "replacements": {
+                "placeholder": "REPLACED"
+            }
+        },
+        "complexSection": {
+            "entryType": 4,
+            "subEntries": {
+                "sectionHeader": {
+                    "entryType": 1
+                },
+                "sectionContent": {
+                    "entryType": 3
+                }
+            }
+        }
+    }
+}
+
+###
