@@ -27,7 +27,4 @@ public record KnowledgeBaseEntrySpec
     {
         public required Dictionary<string, KnowledgeBaseEntrySpec> SubEntries { get; init; } 
     }
-    
-    public sealed record Unsupported: KnowledgeBaseEntrySpec;
-    
 }
