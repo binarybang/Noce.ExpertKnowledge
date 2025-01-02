@@ -1,4 +1,4 @@
-@KnowledgeApi_HostAddress = http://localhost:8100
+@KnowledgeApi_HostAddress = http://localhost:8100/api
 
 POST {{KnowledgeApi_HostAddress}}/knowledge-base/query
 Content-Type: application/json

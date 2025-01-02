@@ -6,7 +6,7 @@ This is a demo for a solution to a niche business problem.
 ## Problem
 Say, you have a large amount of [copies](https://en.wikipedia.org/wiki/Copy_(publishing)) for use in your product UI.
 
-These would be put somewhere in i18n files and updated as part of CI/CD process but stakeholders want to be able to edit them and quickly apply the updates to UI.
+These would be put somewhere in i18n files and updated as part of CI/CD process but domain experts want to be able to edit them and quickly apply the updates to UI.
 This requirement and the amount of edit requests make this too tedious to support using standard i18n mechanisms.
 
 The solution here demonstrates how to consume the copies stored on backend in a way that:
