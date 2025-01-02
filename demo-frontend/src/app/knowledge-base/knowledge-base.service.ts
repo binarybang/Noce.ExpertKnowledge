@@ -4,7 +4,7 @@ import {map, Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {KnowledgeBaseResponse} from './knowledge-base-response';
 import {API_URL_BUILDER, ApiUrlBuilder} from '../utils/api.config';
-import {KnowledgeBaseQueryResult} from './knowledge-base-query';
+import {KnowledgeBaseQueryResult} from './query';
 
 @Injectable({
   providedIn: 'root'

@@ -1,4 +1,4 @@
-﻿import {Entries, KnowledgeBaseQueryResult} from "./knowledge-base-query";
+﻿import {Entries, KnowledgeBaseQueryResult} from './query';
 
 export interface KnowledgeBaseRequest<TResponse extends KnowledgeBaseQueryResult> {
   entryKeyPrefix: string,

@@ -2,7 +2,7 @@ import { ResolveFn } from '@angular/router';
 import {KnowledgeBaseRequest} from './knowledge-base-request';
 import {KnowledgeBaseService} from './knowledge-base.service';
 import {inject} from '@angular/core';
-import {KnowledgeBaseQueryResult} from './knowledge-base-query';
+import {KnowledgeBaseQueryResult} from './query';
 
 export const createKnowledgeBaseQueryResolver = <TData extends KnowledgeBaseQueryResult>(
   buildRequest: () => KnowledgeBaseRequest<TData>): ResolveFn<TData> => {

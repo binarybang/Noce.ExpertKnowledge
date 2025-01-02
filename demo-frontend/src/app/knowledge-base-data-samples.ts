@@ -1,15 +1,19 @@
 ﻿import {
   compoundEntry,
-  markdownEntry, MarkdownKnowledgeEntry,
+  markdownEntry,
   textEntry,
-  tooltipEntry, TooltipKnowledgeEntry, unsupportedEntry, UnsupportedEntry
-} from './knowledge-base/knowledge-base-query';
+  tooltipEntry, UnsupportedEntry,
+  unsupportedEntry,
+  MarkdownKnowledgeEntry,
+  TooltipKnowledgeEntry, textWithPlaceholdersEntry
+} from './knowledge-base/query';
 import {KnowledgeBaseRequest} from './knowledge-base/knowledge-base-request';
 
 export type PageDataSample = {
   personalDataHeader: string;
   personalIdTooltip: TooltipKnowledgeEntry;
   detailedExplanation: MarkdownKnowledgeEntry;
+  placeholderEntry: string;
 }
 
 export function buildPageDataSampleKnowledgeBaseQuery(): KnowledgeBaseRequest<PageDataSample> {
@@ -18,7 +22,12 @@ export function buildPageDataSampleKnowledgeBaseQuery(): KnowledgeBaseRequest<Pa
     entries: {
       personalDataHeader: textEntry(),
       personalIdTooltip: tooltipEntry(),
-      detailedExplanation: markdownEntry()
+      detailedExplanation: markdownEntry(),
+      placeholderEntry: textWithPlaceholdersEntry({
+        replacements: {
+          placeholder: "REPLACED"
+        }
+      })
     }
   }
 }
@@ -37,8 +46,10 @@ export function buildSecondDataSampleKnowledgeBaseQuery(): KnowledgeBaseRequest<
     entries: {
       sectionTitle: textEntry(),
       categories: compoundEntry({
-        newCustomer: textEntry(),
-        existingCustomer: textEntry()
+        subEntries: {
+          newCustomer: textEntry(),
+          existingCustomer: textEntry()
+        }
       })
     }
   }
@@ -54,7 +65,7 @@ export function buildBadDataSampleKnowledgeBaseQuery(): KnowledgeBaseRequest<Bad
   return {
     entryKeyPrefix: 'product.badData',
     entries: {
-      noDataDemo: tooltipEntry('missingEntry'),
+      noDataDemo: tooltipEntry({entryKey: 'missingEntry'}),
       unsupportedEntry: unsupportedEntry()
     }
   }

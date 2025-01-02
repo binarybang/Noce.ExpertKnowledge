@@ -9,7 +9,7 @@ import {
 import {ActivatedRoute} from '@angular/router';
 import {AsyncPipe} from '@angular/common';
 import {PrettyJsonPipe} from '../utils/pretty-json.pipe';
-import {TooltipKnowledgeEntry} from '../knowledge-base/knowledge-base-query';
+import {TooltipKnowledgeEntry} from '../knowledge-base/query';
 
 @Component({
   selector: 'app-query-resolution-demo',
