@@ -25,7 +25,13 @@ internal static class ServiceCollectionExtensions
         if (!string.IsNullOrWhiteSpace(serverUrl))
         {
             return services
-                .AddSwaggerGen(o => o.AddServer(new OpenApiServer {Url = serverUrl}));
+                .AddSwaggerGen(o =>
+                {
+                    o.AddServer(new OpenApiServer { Url = serverUrl });
+                    o.EnableAnnotations(
+                        enableAnnotationsForPolymorphism: true,
+                        enableAnnotationsForInheritance: true);
+                });
         }
         
         return services.AddSwaggerGen();

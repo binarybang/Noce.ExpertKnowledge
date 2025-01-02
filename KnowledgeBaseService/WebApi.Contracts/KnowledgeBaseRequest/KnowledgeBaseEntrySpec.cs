@@ -2,13 +2,13 @@
 
 namespace Noce.ExpertKnowledge.WebApi.Contracts.KnowledgeBaseRequest;
 
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "entryType")]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "entryType", IgnoreUnrecognizedTypeDiscriminators = true)]
 [JsonDerivedType(typeof(PlainText), (int)EntryType.PlainText)]
 [JsonDerivedType(typeof(TextWithPlaceholders), (int)EntryType.TextWithPlaceholders)]
 [JsonDerivedType(typeof(Tooltip), (int)EntryType.Tooltip)]
 [JsonDerivedType(typeof(Markdown), (int)EntryType.Markdown)]
 [JsonDerivedType(typeof(CompoundEntry), (int)EntryType.Compound)]
-public abstract record KnowledgeBaseEntrySpec
+public record KnowledgeBaseEntrySpec
 {
     public string? EntryKey { get; init; }
     
@@ -27,5 +27,7 @@ public abstract record KnowledgeBaseEntrySpec
     {
         public required Dictionary<string, KnowledgeBaseEntrySpec> SubEntries { get; init; } 
     }
+    
+    public sealed record Unsupported: KnowledgeBaseEntrySpec;
     
 }
