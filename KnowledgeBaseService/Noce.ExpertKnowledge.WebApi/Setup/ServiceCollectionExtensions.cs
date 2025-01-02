@@ -27,6 +27,11 @@ internal static class ServiceCollectionExtensions
             return services
                 .AddSwaggerGen(o =>
                 {
+                    o.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Title = "Knowledge base API",
+                        Description = "Demo API for knowledge base queries"
+                    });
                     o.AddServer(new OpenApiServer { Url = serverUrl });
                     o.EnableAnnotations(
                         enableAnnotationsForPolymorphism: true,
