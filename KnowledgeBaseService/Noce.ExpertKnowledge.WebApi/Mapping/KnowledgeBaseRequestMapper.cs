@@ -1,6 +1,4 @@
-﻿using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions;
-using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
-using Noce.ExpertKnowledge.WebApi.Contracts;
+﻿using Noce.ExpertKnowledge.KnowledgeBaseQueryProcessing.Abstractions.Query;
 using Noce.ExpertKnowledge.WebApi.Contracts.KnowledgeBaseRequest;
 
 namespace Noce.ExpertKnowledge.WebApi.Mapping;
@@ -11,7 +9,7 @@ public class KnowledgeBaseRequestMapper : IKnowledgeBaseRequestMapper
     {
         return new KnowledgeBaseQuery
         {
-            ElementPrefix = request.EntryKeyPrefix,
+            EntryKeyPrefix = request.EntryKeyPrefix ?? string.Empty,
             Entries = MapEntrySpecifications(request.Entries)
         };
     }
@@ -27,16 +25,17 @@ public class KnowledgeBaseRequestMapper : IKnowledgeBaseRequestMapper
     {
         var entryKey = sourceSpec.EntryKey ?? entrySpecKey;
         
-        if (sourceSpec is { EntryType: EntryType.Compound, SubEntries.Count: > 0 })
+        if (sourceSpec is KnowledgeBaseEntrySpec.CompoundEntry compoundEntrySpec)
         {
-            return new EntrySpec.CompoundEntry(entryKey, MapEntrySpecifications(sourceSpec.SubEntries));
+            return new EntrySpec.CompoundEntry(entryKey, MapEntrySpecifications(compoundEntrySpec.SubEntries));
         }
         
-        return sourceSpec.EntryType switch
+        return sourceSpec switch
         {
-            EntryType.PlainText => new EntrySpec.PlainText(entryKey),
-            EntryType.Tooltip => new EntrySpec.Tooltip(entryKey),
-            EntryType.Markdown => new EntrySpec.Markdown(entryKey),
+            KnowledgeBaseEntrySpec.PlainText => new EntrySpec.PlainText(entryKey),
+            KnowledgeBaseEntrySpec.TextWithPlaceholders twp => new EntrySpec.TextWithPlaceholders(entryKey, twp.Replacements),
+            KnowledgeBaseEntrySpec.Tooltip => new EntrySpec.Tooltip(entryKey),
+            KnowledgeBaseEntrySpec.Markdown => new EntrySpec.Markdown(entryKey),
             _ => new EntrySpec.Unsupported(entryKey),
         };
     }

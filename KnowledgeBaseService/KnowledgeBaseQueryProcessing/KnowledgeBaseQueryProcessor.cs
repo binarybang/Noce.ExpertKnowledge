@@ -25,7 +25,7 @@ internal class KnowledgeBaseQueryProcessor : IKnowledgeBaseQueryProcessor
         KnowledgeBaseQuery query,
         CancellationToken cancellationToken)
     {
-        var flatEntries = _entrySpecsEncoder.EncodeEntrySpecs(query.ElementPrefix, query.Entries);
+        var flatEntries = _entrySpecsEncoder.EncodeEntrySpecs(query.EntryKeyPrefix, query.Entries);
         var resolvedFlatEntries = await _flatKnowledgeBaseEntryResolver.ResolveEntries(flatEntries.ToList(), cancellationToken);
         return _queryResultBuilder.BuildQueryResult(query, resolvedFlatEntries);
     }

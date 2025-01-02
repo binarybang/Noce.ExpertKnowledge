@@ -24,11 +24,13 @@ public class TextWithPlaceholdersSpecProcessor: IEntrySpecProcessor<EntrySpec.Te
         var sb = new StringBuilder(rawValue);
         foreach (var (key, value) in entrySpec.Replacements)
         {
-            sb.Replace(key, value);
+            sb.Replace(ReplacementKeyReference(key), value);
         }
 
         var valueAfterReplacements = sb.ToString();
 
         return new KnowledgeBaseEntry.TextWithPlaceholders(valueAfterReplacements);
     }
+
+    private static string ReplacementKeyReference(string key) => $"[[{key}]]";
 }

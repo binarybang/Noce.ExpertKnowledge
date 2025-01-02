@@ -18,7 +18,7 @@ internal class QueryResultBuilder : IQueryResultBuilder
         KnowledgeBaseQuery query,
         Dictionary<string, FlatKnowledgeBaseEntry> resolvedFlatEntries)
     {
-        var entries = _entrySpecDecoder.DecodeEntrySpecs(query.ElementPrefix, query.Entries, resolvedFlatEntries);
+        var entries = _entrySpecDecoder.DecodeEntrySpecs(query.EntryKeyPrefix, query.Entries, resolvedFlatEntries);
         return new KnowledgeBaseQueryResult
         {
             Entries = entries

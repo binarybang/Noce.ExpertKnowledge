@@ -23,7 +23,7 @@ public class KnowledgeBaseController : ControllerBase
         _requestMapper = requestMapper;
         _responseMapper = responseMapper;
     }
-
+    
     [HttpPost("query")]
     public async Task<KnowledgeBaseResponse> QueryKnowledgeBase(KnowledgeBaseRequest request, CancellationToken cancellationToken)
     {

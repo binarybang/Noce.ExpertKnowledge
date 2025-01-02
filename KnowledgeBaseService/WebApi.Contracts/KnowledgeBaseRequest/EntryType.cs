@@ -1,6 +1,6 @@
-﻿namespace Noce.ExpertKnowledge.WebApi.Contracts.KnowledgeBaseRequest2;
+﻿namespace Noce.ExpertKnowledge.WebApi.Contracts.KnowledgeBaseRequest;
 
-public enum EntryType2
+public enum EntryType
 {
     PlainText = 1,
     Tooltip = 2,
